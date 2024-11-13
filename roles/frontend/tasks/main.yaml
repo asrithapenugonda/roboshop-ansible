@@ -2,10 +2,7 @@
 
 
 
-#print_head "Creating roboshop configuration"
-#cp ${script_location}/Files/nginx-roboshop.conf /etc/nginx/default.d/roboshop.conf &>>${LOG}
-#status_check
-#
+
 #print_head "Restarting the nginx"
 #systemctl restart nginx &>>${LOG}
 #status_check
@@ -41,7 +38,9 @@
     src: roboshop.conf
     dest: /etc/nginx/default.d/roboshop.conf
 
-
-
+- name: restart the nginx
+  ansible.builtin.systemd_service:
+    name: nginx
+    state: restarted
 
 
