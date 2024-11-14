@@ -1,16 +1,8 @@
 
-
-
-
-
-#print_head "Restarting the nginx"
-#systemctl restart nginx &>>${LOG}
-#status_check
-
 - name: Install nginx
   ansible.builtin.yum:
     name: nginx
-    state: present
+    state: installed
 
 - name: Enable nginx
   ansible.builtin.systemd_service:
