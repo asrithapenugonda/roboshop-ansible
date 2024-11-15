@@ -1,3 +1,50 @@
-- name: test
-  ansible.builtin.debug:
-    msg: :Hello from catalogue
+
+- name: Installing Nodejs
+  ansible.builtin.dnf:
+    name: nodejs = 18
+    state: installed
+
+- name: Create the directory
+  ansible.builtin.files:
+    path: /app
+    state: directory
+
+- name: Removing content in the app directory
+  ansible.builtin.files:
+    path: /app
+    state: absent
+
+- name: Downloading the catalogue file
+  ansible.builtin.unarchive:
+  src: https://roboshop-artifacts.s3.amazonaws.com/catalogue.zip
+  dest: /app
+  remote_src: yes
+
+
+- name: Installing Nodejs dependencies
+  community.general.npm:
+    path: /app
+    state: latest
+
+- name: Systemd setup for catalogue
+  ansible.builtin.copy:
+    src: catalogue.service
+    dest: /etc/systemd/system/catalogue.service
+
+- name: Restart the service
+  ansible.builtin.systemd:
+    name: catalogue
+    state: restart
+    daemon_reload: yes
+    enabled: yes
+
+
+
+- name: Run a js file containing MongoDB commands with pseudo-idempotency
+  community.mongodb.mongodb_shell:
+    file: "/app/schema/catalogue.js"
+    login_host: mongodb-dev.robomart.tech
+    idempotent: yes
+
+
+
