@@ -52,7 +52,7 @@
 - name: Restart the service
   ansible.builtin.systemd:
     name: catalogue
-    state: restart
+    state: restarted
     daemon_reload: yes
     enabled: yes
 
