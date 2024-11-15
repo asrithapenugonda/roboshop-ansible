@@ -19,11 +19,11 @@
     path: /app
     state: absent
 
-- name: Downloading the catalogue file
+- name:   Downloading the frontend file
   ansible.builtin.unarchive:
-  src: https://roboshop-artifacts.s3.amazonaws.com/catalogue.zip
-  dest: /app
-  remote_src: yes
+    src: https://roboshop-artifacts.s3.amazonaws.com/catalogue.zip
+    dest: /usr/share/nginx/html
+    remote_src: yes
 
 
 - name: Installing Nodejs dependencies
