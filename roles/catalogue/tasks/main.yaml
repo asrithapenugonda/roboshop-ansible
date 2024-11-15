@@ -4,6 +4,11 @@
     name: nodejs = 18
     state: installed
 
+- name: Add Application User
+  ansible.builtin.user:
+    name: roboshop
+
+
 - name: Create the directory
   ansible.builtin.file:
     path: /app
