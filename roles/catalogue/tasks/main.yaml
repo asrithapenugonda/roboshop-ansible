@@ -1,8 +1,21 @@
 
-- name: Installing Nodejs
+- name: Disable existing Node.js module
+  ansible.builtin.command:
+    cmd: dnf module disable nodejs -y
+  args:
+    warn: false
+
+- name: Enable Node.js 18 module
+  ansible.builtin.command:
+    cmd: dnf module enable nodejs:18 -y
+  args:
+    warn: false
+
+- name: Install Node.js 18
   ansible.builtin.dnf:
-    name: nodejs = 18
-    state: installed
+    name: nodejs
+    state: present
+
 
 - name: Add Application User
   ansible.builtin.user:
