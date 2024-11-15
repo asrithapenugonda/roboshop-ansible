@@ -34,7 +34,7 @@
 - name:   Downloading the frontend file
   ansible.builtin.unarchive:
     src: https://roboshop-artifacts.s3.amazonaws.com/catalogue.zip
-    dest: /usr/share/nginx/html
+    dest: /app
     remote_src: yes
 
 
