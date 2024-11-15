@@ -21,15 +21,16 @@
     name: roboshop
 
 
-- name: Create the directory
-  ansible.builtin.file:
-    path: /app
-    state: directory
-
 - name: Removing content in the app directory
   ansible.builtin.file:
     path: /app
     state: absent
+
+
+- name: Create the directory
+  ansible.builtin.file:
+     path: /app
+     state: directory
 
 - name:   Downloading the frontend file
   ansible.builtin.unarchive:
