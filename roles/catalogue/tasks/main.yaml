@@ -67,7 +67,11 @@
     name: mongodb-org-shell
     state: installed
 
--
+- name: Install MongoDB Shell (mongosh)
+  ansible.builtin.yum:
+    name: mongodb-mongosh
+    state: present
+
 
 - name: Run a js file containing MongoDB commands with pseudo-idempotency
   community.mongodb.mongodb_shell:
