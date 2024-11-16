@@ -71,8 +71,8 @@
 
 - name: Run a js file containing MongoDB commands with pseudo-idempotency
   community.mongodb.mongodb_shell:
-    file: "/app/schema/catalogue.js"
     login_host: mongodb-dev.robomart.tech
+    file: "/app/schema/catalogue.js"
     idempotent: yes
 
 
