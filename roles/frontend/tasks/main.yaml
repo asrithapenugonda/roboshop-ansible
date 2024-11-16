@@ -2,7 +2,7 @@
 - name: Install nginx
   ansible.builtin.yum:
     name: nginx
-    state: installed
+    state: present
 
 - name: Enable nginx
   ansible.builtin.systemd_service:
