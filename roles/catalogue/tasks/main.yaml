@@ -32,7 +32,7 @@
      path: /app
      state: directory
 
-- name:   Downloading the frontend file
+- name:   Downloading the catalogue file
   ansible.builtin.unarchive:
     src: https://roboshop-artifacts.s3.amazonaws.com/catalogue.zip
     dest: /app
@@ -70,7 +70,7 @@
 
 - name: Installing the mongodb repo
   ansible.builtin.yum:
-    name: mongodb-org-shell
+    name: mongodb-shell
     state: installed
 
 - name: Install MongoDB Shell (mongosh)
