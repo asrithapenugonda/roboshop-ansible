@@ -29,7 +29,7 @@
 - name: Setting up the redis repo
   ansible.builtin.yum:
     name: https://rpms.remirepo.net/enterprise/remi-release-8.rpm
-    state: Installed
+    state: installed
 
 - name: Enable Redis 6.2 version
   ansible.builtin.command:
@@ -39,4 +39,4 @@
 - name: Installing Redis
   ansible.builtin.yum:
     name: Redis
-    state: Installed
+    state: installed
