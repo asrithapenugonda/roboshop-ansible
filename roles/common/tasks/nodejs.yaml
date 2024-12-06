@@ -1,0 +1,87 @@
+- name: Disable existing Node.js module
+  ansible.builtin.command:
+    cmd: dnf module disable nodejs -y
+
+
+- name: Enable Node.js 18 module
+  ansible.builtin.command:
+    cmd: dnf module enable nodejs:18 -y
+
+
+
+- name: Install Node.js 18
+  ansible.builtin.dnf:
+    name: nodejs
+    state: present
+
+
+- name: Add Application User
+  ansible.builtin.user:
+    name: roboshop
+
+
+- name: Removing content in the app directory
+  ansible.builtin.file:
+    path: /app
+    state: absent
+
+
+- name: Create the directory
+  ansible.builtin.file:
+    path: /app
+    state: directory
+
+- name:   Downloading the {{component}} file
+  ansible.builtin.unarchive:
+    src: https://roboshop-artifacts.s3.amazonaws.com/{{component}}.zip
+    dest: /app
+    remote_src: yes
+
+
+- name: Installing Nodejs dependencies
+  community.general.npm:
+    path: /app
+    state: latest
+
+- name: Systemd setup for {{component}}
+  ansible.builtin.copy:
+    src: "{{component}}.service"
+    dest: /etc/systemd/system/{{component}}.service
+
+- name: Restart the service
+  ansible.builtin.systemd:
+    name: "{{component}}"
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
+
+
+
+- name: Copying the mongodb repo
+  ansible.builtin.copy:
+    src: mongod.repo
+    dest: /etc/yum.repos.d/mongodb.repo
+
+- name: Copying the mongodb repo
+  ansible.builtin.copy:
+    src: mongodb.repo
+    dest: /etc/yum.repos.d/mongodb.repo
+
+
+- name: Installing the mongodb repo
+  ansible.builtin.yum:
+    name: mongodb-shell
+    state: installed
+
+- name: Install MongoDB Shell (mongosh)
+  ansible.builtin.yum:
+    name: mongodb-mongosh
+    state: present
+
+
+- name: Run a js file containing MongoDB commands with pseudo-idempotency
+  community.mongodb.mongodb_shell:
+    login_host: mongodb-dev.robomart.website
+    file: "/app/schema/{{component}}.js"
+    idempotent: yes
+
