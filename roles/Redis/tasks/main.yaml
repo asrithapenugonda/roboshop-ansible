@@ -18,7 +18,7 @@
     state: installed
 
 
-- name: Changong the listen address
+- name: Changing the listen address
   ansible.builtin.replace:
     path: "{{item}}"
     regexp: 127.0.0.1
