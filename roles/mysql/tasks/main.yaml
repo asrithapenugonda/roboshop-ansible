@@ -19,7 +19,7 @@
 - name: systemd service of mysql
   ansible.builtin.systemd:
     name: mysql
-    restrarted: yes
+    restarted: yes
     enable: yes
 
 - name: setting mysql password
