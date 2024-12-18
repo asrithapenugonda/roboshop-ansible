@@ -24,5 +24,12 @@
 
 - name: setting mysql password
   ansible.builtin.shell: mysql_secure_installation --set-root-pass {{root_mysql_password}}
+  register: out
+  ignore_errors: yes
+
+- name: print a message
+  debug:
+    msg: password already changed
+  when: out.rc == 1
 
 
