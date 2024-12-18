@@ -16,45 +16,17 @@
     state: present
 
 
-- name: Add Application User
-  ansible.builtin.user:
-    name: roboshop
-
-
-- name: Removing content in the app directory
-  ansible.builtin.file:
-    path: /app
-    state: absent
-
-
-- name: Create the directory
-  ansible.builtin.file:
-    path: /app
-    state: directory
-
-- name:   Downloading the {{component}} file
-  ansible.builtin.unarchive:
-    src: https://roboshop-artifacts.s3.amazonaws.com/{{component}}.zip
-    dest: /app
-    remote_src: yes
-
+- name: app prerequistes
+  ansible.builtin.include_tasks: "app-prereq.yaml"
 
 - name: Installing Nodejs dependencies
   community.general.npm:
     path: /app
     state: latest
 
-- name: Systemd setup for {{component}}
-  ansible.builtin.copy:
-    src: "{{component}}.service"
-    dest: /etc/systemd/system/{{component}}.service
 
-- name: Restart the service
-  ansible.builtin.systemd:
-    name: "{{component}}"
-    state: restarted
-    daemon_reload: yes
-    enabled: yes
+- name: systemd setup
+  ansible.builtin.include_tasks: "systemd.yaml"
 
 - name: loading schema
   ansible.builtin.include_tasks: "{{schema_type}}-schema.yaml"

@@ -1,0 +1,23 @@
+
+- name: Installing Maven
+  ansible.builtin.yum:
+    name: maven
+    state: installed
+
+- name: app prerequistes
+  ansible.builtin.include_tasks: "app-prereq.yaml"
+
+- name: building a maven package in app
+  ansible.builtin.shell: mvn clean package
+  args:
+    chdir: /app
+
+- name: systemd setup
+  ansible.builtin.include_tasks: "systemd.yaml"
+
+- name: schema load
+  ansible.builtin.include_tasks: "{{schema_type}}-schema.yaml"
+
+
+
+
