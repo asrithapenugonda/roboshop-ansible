@@ -1,3 +1,13 @@
+
+- name: installing req. packages
+  ansible.builtin.yum:
+    name:
+      - python3-PyMySQL
+      - mysql
+    state: Installed
+
+
+
 - name: loading mysql schema
   community.mysql.mysql_db:
     state: import
