@@ -9,7 +9,7 @@
 
 
 - name: including app prereq file
-  ansible.builtin.include_task: "app_prereq.yaml"
+  ansible.builtin.include_tasks: "app_prereq.yaml"
 
 
 - name: Install specified python requirements
