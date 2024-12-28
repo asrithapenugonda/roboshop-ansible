@@ -5,6 +5,7 @@
       - python3-PyMySQL
       - mysql
     state: installed
+  when: schema_load == true
 
 
 
@@ -16,3 +17,5 @@
     login_host: mysql-dev.robomart.website
     login_user: root
     login_password: "{{root_mysql_password}}"
+
+  when: schema_load == true
