@@ -1,0 +1,4 @@
+- name: Importing python file
+  ansible.builtin.import_roles:
+    name: common
+    tasks_from: python
