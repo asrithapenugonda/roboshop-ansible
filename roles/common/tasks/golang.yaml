@@ -24,7 +24,7 @@
 
 
 - name: Installing Golang
-  ansible.builtin.ansible:
+  ansible.builtin.yum:
     name: golang
     state: installed
 
