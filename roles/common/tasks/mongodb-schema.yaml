@@ -2,30 +2,30 @@
   ansible.builtin.copy:
     src: mongod.repo
     dest: /etc/yum.repos.d/mongodb.repo
-  when: schema_load == true
+
 
 - name: Copying the mongodb repo
   ansible.builtin.copy:
     src: mongodb.repo
     dest: /etc/yum.repos.d/mongodb.repo
-  when: schema_load == true
+
 
 - name: Installing the mongodb repo
   ansible.builtin.yum:
     name: mongodb-shell
     state: installed
-  when: schema_load == true
+
 
 - name: Install MongoDB Shell (mongosh)
   ansible.builtin.yum:
     name: mongodb-mongosh
     state: present
-  when: schema_load == true
+
 
 - name: Run a js file containing MongoDB commands with pseudo-idempotency
   community.mongodb.mongodb_shell:
     login_host: mongodb-dev.robomart.website
     file: "/app/schema/{{component}}.js"
     idempotent: yes
-  when: schema_load == true
+
 
