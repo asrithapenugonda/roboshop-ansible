@@ -1,0 +1,14 @@
+
+- name: Creating the aws parameters
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: creating all the parameters using loop
+      community.aws.aws_ssm_parameter_store:
+        name: " {{ item.name }} "
+        value: " {{item.value}} "
+        region: us-east-1
+
+      loop:
+        - { name: "REDIS_HOST" , value: "redis-dev.robomart.website"}
+        - { name: "CATALOGUE_HOST" , value: "catalogue-dev.robomart.website"}
