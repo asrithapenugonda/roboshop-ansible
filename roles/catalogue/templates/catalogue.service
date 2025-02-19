@@ -3,7 +3,7 @@ Description = Catalogue Service
 
 [Service]
 User=roboshop
-Environment=MONGO=true
+Environment=MONGO="{{ lookup('aws_ssm' , "{{env}}.{{component}}.MONGO", region='us-east-1' )}}"
 Environment=MONGO_URL="mongodb://mongodb-dev.robomart.website:27017/catalogue"
 ExecStart=/bin/node /app/server.js
 SyslogIdentifier=catalogue
