@@ -10,5 +10,24 @@
         region: us-east-1
 
       loop:
-        - { name: "REDIS_HOST" , value: "redis-dev.robomart.website"}
-        - { name: "CATALOGUE_HOST" , value: "catalogue-dev.robomart.website"}
+        - { name: "dev.cart.REDIS_HOST" , value: "redis-dev.robomart.website" }
+        - { name: "dev.cart.CATALOGUE_HOST" , value: "catalogue-dev.robomart.website" }
+        - { name: "dev.catalogue.MONGO" , value: "true"}
+        - { name: "dev.catalogue.MONGO_URL" , value: "mongodb://mongodb-dev.robomart.website:27017/catalogue" }
+        - { name: "dev.frontend.CATALOGUE_URL" , value: "http://catalogue-dev.robomart.website:8080/" }
+        - { name: "dev.frontend.USER_URL" , value: "http://user-dev.robomart.website:8080/" }
+        - { name: "dev.frontend.CART_URL" , value: "http://cart-dev.robomart.website:8080/" }
+        - { name: "dev.frontend.SHIPPING_URL" , value: "http://shipping-dev.robomart.website:8080/" }
+        - { name: "dev.frontend.PAYMENT_URL" , value: "http://payment-dev.robomart.website:8080/" }
+        - { name: "dev.payment.CART_HOST" , value: "cart-dev.robomart.website" }
+        - { name: "dev.payment.CART_PORT" , value: "8080" }
+        - { name: "dev.payment.USER_HOST" , value: "user-dev.robomart.website" }
+        - { name: "dev.payment.USER_PORT" , value: "8080" }
+        - { name: "dev.payment.AMQP_HOST" , value: "rabbitmq-dev.robomart.website" }
+        - { name: "dev.payment.AMQP_USER" , value: "roboshop" }
+        - { name: "dev.payment.AMQP_PASS" , value: "roboshop123" }
+        - { name: "dev.shipping.CART_ENDPOINT" , value: "cart-dev.robomart.website:8080" }
+        - { name: "dev.shipping.DB_HOST" , value: "mysql-dev.robomart.website" }
+        - { name: "dev.user.MONGO" , value: "true" }
+        - { name: "dev.user.REDIS_HOST" , value: "redis-dev.robomart.website" }
+        - { name: "dev.user.MONGO_URL" , value: "mongodb://mongodb-dev.robomart.website:27017/users" }
