@@ -1,4 +1,5 @@
 - name: Systemd setup for {{component}}
+  become: yes
   ansible.builtin.template:
     src: "{{component}}.service"
     dest: /etc/systemd/system/{{component}}.service
