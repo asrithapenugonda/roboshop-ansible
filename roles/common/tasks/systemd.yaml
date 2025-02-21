@@ -2,6 +2,7 @@
   ansible.builtin.template:
     src: "{{component}}.service"
     dest: /etc/systemd/system/{{component}}.service
+    force: yes
 
 - name: Restart the service
   ansible.builtin.systemd:
