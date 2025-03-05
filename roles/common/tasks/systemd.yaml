@@ -3,11 +3,11 @@
     src: "{{component}}.service"
     dest: /etc/systemd/system/{{component}}.service
     force: yes
-  register: template_output
 
-- name: Debug template output
-  ansible.builtin.debug:
-    var: template_output
+
+- name: Debug the rendered template output
+  debug:
+    msg: "{{ lookup('file', '/etc/systemd/system/catalogue.service') }}"
 
 - name: Start {{component}} Service
   ansible.builtin.systemd:
