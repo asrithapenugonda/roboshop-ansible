@@ -3,6 +3,11 @@
     src: "{{component}}.service"
     dest: /etc/systemd/system/{{component}}.service
     force: yes
+  register: template_output
+
+- name: Debug template output
+  ansible.builtin.debug:
+    var: template_output
 
 - name: Start {{component}} Service
   ansible.builtin.systemd:
