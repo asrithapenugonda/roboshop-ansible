@@ -19,9 +19,14 @@
   debug:
     msg: "File exists: {{ service_file_status.stat.exists }}"
 
-- name: Debug the rendered template output
+- name: Slurp the catalogue service file contents
+  ansible.builtin.slurp:
+    src: "/etc/systemd/system/catalogue.service"
+  register: slurped_file
+
+- name: Debug the contents of the catalogue service file
   debug:
-    msg: "{{ lookup('file', '/etc/systemd/system/catalogue.service') }}"
+    msg: "{{ slurped_file.content | b64decode }}"
   when: service_file_status.stat.exists
 
 - name: Reload systemd to pick up new service file
