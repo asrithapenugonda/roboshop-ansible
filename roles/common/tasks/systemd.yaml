@@ -5,13 +5,46 @@
     force: yes
 
 
+- name: COpy SystemD file
+  ansible.builtin.template:
+    src: "{{component}}.service"
+    dest: /etc/systemd/system/{{component}}.service
+
+- name: Check if the catalogue service file exists
+  ansible.builtin.stat:
+    path: "/etc/systemd/system/catalogue.service"
+  register: service_file_status
+
+- name: Debug the existence of the catalogue service file
+  debug:
+    msg: "File exists: {{ service_file_status.stat.exists }}"
+
 - name: Debug the rendered template output
   debug:
     msg: "{{ lookup('file', '/etc/systemd/system/catalogue.service') }}"
+  when: service_file_status.stat.exists
 
-- name: Start {{component}} Service
+- name: Reload systemd to pick up new service file
   ansible.builtin.systemd:
-    name: "{{component}}"
     daemon_reload: yes
+  when: service_file_status.stat.exists
+
+- name: Start the catalogue service
+  ansible.builtin.systemd:
+    name: "catalogue"
+    state: started
+  when: service_file_status.stat.exists
+
+- name: Enable the catalogue service to start on boot
+  ansible.builtin.systemd:
+    name: "catalogue"
     enabled: yes
-    state: restarted
+  when: service_file_status.stat.exists
+
+
+#- name: Start {{component}} Service
+#  ansible.builtin.systemd:
+#    name: "{{component}}"
+#    daemon_reload: yes
+#    enabled: yes
+#    state: restarted
