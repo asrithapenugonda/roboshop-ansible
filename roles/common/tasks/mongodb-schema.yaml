@@ -16,10 +16,10 @@
     state: installed
 
 
-- name: Install MongoDB Shell
-  ansible.builtin.yum:
-    name: mongodb-mongosh
-    state: installed
+#- name: Install MongoDB Shell
+#  ansible.builtin.yum:
+#    name: mongodb-mongosh
+#    state: installed
 
 
 
