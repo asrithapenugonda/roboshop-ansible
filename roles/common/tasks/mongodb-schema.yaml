@@ -27,10 +27,10 @@
     dest: /etc/yum.repos.d/mongodb.repo
     mode: '0644'
 
-- name: Refresh YUM cache
-  ansible.builtin.command:
-    cmd: yum clean all && yum makecache
-  changed_when: false
+#- name: Refresh YUM cache
+#  ansible.builtin.command:
+#    cmd: yum clean all && yum makecache
+#  changed_when: false
 
 - name: Install MongoDB Shell
   ansible.builtin.yum:
