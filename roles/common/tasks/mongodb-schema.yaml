@@ -4,22 +4,39 @@
 #    dest: /etc/yum.repos.d/mongodb.repo
 
 
-- name: Copying the mongodb repo
-  ansible.builtin.copy:
-    src: mongodb.repo
-    dest: /etc/yum.repos.d/mongodb.repo
-
-
-- name: Installing the mongodb repo
-  ansible.builtin.yum:
-    name: mongodb-org-shell
-    state: installed
+#- name: Copying the mongodb repo
+#  ansible.builtin.copy:
+#    src: mongodb.repo
+#    dest: /etc/yum.repos.d/mongodb.repo
+#
+#
+#- name: Installing the mongodb repo
+#  ansible.builtin.yum:
+#    name: mongodb-org-shell
+#    state: present
 
 
 #- name: Install MongoDB Shell
 #  ansible.builtin.yum:
 #    name: mongodb-mongosh
 #    state: installed
+
+- name: Copy MongoDB repo file
+  ansible.builtin.copy:
+    src: mongodb.repo
+    dest: /etc/yum.repos.d/mongodb.repo
+    mode: '0644'
+
+- name: Refresh YUM cache
+  ansible.builtin.command:
+    cmd: yum clean all && yum makecache
+  changed_when: false
+
+- name: Install MongoDB Shell
+  ansible.builtin.yum:
+    name: mongodb-org-shell
+    state: present
+
 
 
 
