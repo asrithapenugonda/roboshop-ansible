@@ -4,6 +4,12 @@
     src: "{{component}}.service"
     dest: /etc/systemd/system/{{component}}.service
 
+
+- name: Debug output to check the file path
+  ansible.builtin.debug:
+    msg: "Template file path: {{ component }}.service"
+
+
 - name: Start {{component}} Service
   ansible.builtin.systemd:
     name: "{{component}}"
