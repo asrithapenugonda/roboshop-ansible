@@ -1,7 +1,7 @@
-#- name: Copying the mongodb repo
-#  ansible.builtin.copy:
-#    src: mongod.repo
-#    dest: /etc/yum.repos.d/mongodb.repo
+- name: Copying the mongodb repo
+  ansible.builtin.copy:
+    src: mongod.repo
+    dest: /etc/yum.repos.d/mongodb.repo
 
 
 - name: Copying the mongodb repo
@@ -16,10 +16,10 @@
     state: installed
 
 
-#- name: Install MongoDB Shell
-#  ansible.builtin.yum:
-#    name: mongodb-mongosh
-#    state: installed
+- name: Install MongoDB Shell
+  ansible.builtin.yum:
+    name: mongodb-mongosh
+    state: installed
 
 
 
